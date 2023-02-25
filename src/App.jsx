@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import SearchIcon from "@material-ui/icons/Search"
-import ImageListItem from "@mui/material/ImageListItem"
 import { useStyles } from "./style.js"
 import ImageGrid from "./components/ImageGrid.js"
 
@@ -23,7 +22,7 @@ const App = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `https://api.unsplash.com/photos/?client_id=440qyQkxViGYHgEkToCYZ4uFAV-l8A3lWCkEPTT8_Ps`
+          `https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_TOKEN}`
         )
         setImages(response.data)
       } catch (error) {
@@ -36,7 +35,7 @@ const App = () => {
   const handleSearch = async (event) => {
     try {
       const response = await axios.get(
-        `https://api.unsplash.com/search/photos/?query=${search}&client_id=440qyQkxViGYHgEkToCYZ4uFAV-l8A3lWCkEPTT8_Ps`
+        `https://api.unsplash.com/search/photos/?query=${process.env.REACT_APP_TOKEN}`
       )
       setImages(response.data.results)
 
@@ -83,7 +82,9 @@ const App = () => {
           </div>
         </Grid>
       </Grid>
+
       <ImageGrid images={images} handleModalOpen={handleModalOpen} />
+
       {selectedImage && (
         <Modal
           className={classes.modal}
